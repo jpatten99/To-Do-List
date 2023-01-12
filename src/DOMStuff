@@ -1,0 +1,57 @@
+const clearContent = () => {
+  const content = document.getElementById('content');
+  content.innerHTML = "";
+}
+
+const displayToDo = (obj) => {
+  let title = document.createElement('p');
+  title.innerText = obj.title;
+  let description = document.createElement('p');
+  description.innerText = obj.description;
+  let dueDate = document.createElement('p');
+  dueDate.innerText = obj.dueDate;
+  let priority = document.createElement('p');
+  priority.innerText = obj.priority;
+  let container = document.createElement('div');
+  container.setAttribute('class', 'todo-container')
+  container.appendChild(title);
+  container.appendChild(description);
+  container.appendChild(dueDate);
+  container.appendChild(priority);
+  let content = document.getElementById('content');
+  content.appendChild(container);
+  
+}
+
+const displayForm = () => {
+  const myForm = document.getElementById('myform');
+  myForm.classList.remove('inactive');
+}
+
+const removeForm = () => {
+  const myForm = document.getElementById('myform');
+  myForm.classList.add('inactive');
+}
+
+const displayButtons = () => {
+  const eraseBTN = document.getElementById('eraseBTN');
+  const addToDoBTN = document.getElementById('addToDoBTN');
+  eraseBTN.classList.remove('inactive');
+  addToDoBTN.classList.remove('inactive');
+}
+
+const removeButtons = () => {
+  const eraseBTN = document.getElementById('eraseBTN');
+  const addToDoBTN = document.getElementById('addToDoBTN');
+  eraseBTN.classList.add('inactive');
+  addToDoBTN.classList.add('inactive');
+}
+
+export {
+  clearContent,
+  displayToDo,
+  displayForm,
+  removeForm,
+  removeButtons,
+  displayButtons
+};

@@ -6,7 +6,47 @@
      <link rel="stylesheet" href="style.css">
    </head>
    <body>
-    <h1>Test Title3</h1>
+
+    <!-- top-bar div -->
+    <div id="top-bar">
+      <h1 id="header">Welcome to To Do List Version 1</h1>
+      <!-- button bar -->
+      <div id="button-bar">
+        <button type="button" id="eraseBTN">Erase content</button>
+        <button type="button" id="addToDoBTN">Add to do</button>
+      </div>
+      <form action="" id="myform" class="inactive">
+        <!-- Title input -->
+        <label for="title">To Do Title:</label>
+        <input type="text"id="title">
+
+        <!-- Description input -->
+        <label for="description">To Do Description:</label>
+        <input type="text"id="description">
+
+        <!-- dueDate input -->
+        <label for="dueDate">To Do dueDate:</label>
+        <input type="text"id="dueDate">
+
+        <!-- Priority input -->
+        <label for="priority">To Do Priority:</label>
+        <input type="text"id="priority">
+        <button type="button" id="formBTN">Submit to do</button>
+      </form>
+    </div>
+
+    <!-- bottom half -->
+    <div id="bottom-half">
+
+      <!-- side-bar div -->
+      <div id="side-bar">
+        <button type="button" id="addProjectBTN">Add project</button>
+      </div>
+
+      <!-- content div -->
+      <div id="content"></div>
+
+    </div>
     <script src="main.js"></script>
    </body>
  </html>

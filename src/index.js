@@ -1,18 +1,26 @@
-import printMe from './print.js';
+import { clearContent, displayToDo, displayForm, removeForm, removeButtons, displayButtons } from './DOMStuff';
+import { todoFactory } from './todo.js';
 
-function component() {
-  const element = document.createElement('div');
-  const btn = document.createElement('button');
+(function component() {
+  
+  const eraseBTN = document.getElementById('eraseBTN');
+  eraseBTN.addEventListener('click', function(){clearContent()});
 
-  element.innerHTML = "Test Text";
+  const addToDoBTN = document.getElementById('addToDoBTN');
+  addToDoBTN.addEventListener('click', function(){
+    removeButtons();
+    displayForm();
+  });
 
-  btn.innerHTML = 'Click me and check the console!';
-  btn.onclick = printMe;
+  const formBTN = document.getElementById('formBTN');
+  formBTN.addEventListener('click', (event) => {
+    const myForm = document.getElementById('myform');
+    const testToDo2 = todoFactory(title.value, description.value, dueDate.value, priority.value);
+    displayToDo(testToDo2);
+    myForm.reset();
+    removeForm();
+    displayButtons();
+  })
 
-  element.appendChild(btn);
- element.classList.add('hello');
-
-  return element;
-}
-
-document.body.appendChild(component());
+ 
+})();
