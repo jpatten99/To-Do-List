@@ -1,8 +1,10 @@
+// clear all todo's from DOM 
 const clearContent = () => {
   const content = document.getElementById('content');
   content.innerHTML = "";
 }
 
+//Recieves todo as parameter, display it in the content div
 const displayToDo = (obj) => {
   let title = document.createElement('p');
   title.innerText = obj.title;
@@ -18,21 +20,25 @@ const displayToDo = (obj) => {
   container.appendChild(description);
   container.appendChild(dueDate);
   container.appendChild(priority);
+  addButtons(container);
   let content = document.getElementById('content');
   content.appendChild(container);
   
 }
 
+//Display form when add todo button is clicked
 const displayForm = () => {
   const myForm = document.getElementById('myform');
   myForm.classList.remove('inactive');
 }
 
+//Remove form from DOM when todo is submitted
 const removeForm = () => {
   const myForm = document.getElementById('myform');
   myForm.classList.add('inactive');
 }
 
+//Display add todo and erase content buttons after form is submitted
 const displayButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
@@ -40,11 +46,27 @@ const displayButtons = () => {
   addToDoBTN.classList.remove('inactive');
 }
 
+//Remove add todo and erase content buttons from DOM when add todo is clicked
 const removeButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
   eraseBTN.classList.add('inactive');
   addToDoBTN.classList.add('inactive');
+}
+
+//Add delete button to a todo passed into this function
+function addButtons(input) {
+  let delBtn = document.createElement('button');
+  delBtn.innerText = "Delete Todo";
+  delBtn.classList.add('delBtn')
+  input.appendChild(delBtn);
+  delBtn.addEventListener('click', deleteTodo, false);
+  delBtn.myParam = delBtn.parentElement;
+}
+
+//Deletes todo passed into this function
+function deleteTodo(evt) {
+  evt.currentTarget.myParam.remove();
 }
 
 export {

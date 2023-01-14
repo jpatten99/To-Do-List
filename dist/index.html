@@ -29,8 +29,18 @@
         <input type="text"id="dueDate">
 
         <!-- Priority input -->
-        <label for="priority">To Do Priority:</label>
-        <input type="text"id="priority">
+        <!-- <label for="priority">To Do Priority:</label>
+        <input type="text"id="priority"> -->
+
+        <p id=form-prompt>Priority?</p>
+        <input type="radio" id="priority" name="priority" value="low" checked>
+        <label for="priority">low</label><br>
+        <input type="radio" id="priority" name="priority" value="medium">
+        <label for="priority">medium</label><br>
+        <input type="radio" id="priority" name="priority" value="high">
+        <label for="priority">high</label>
+
+        <!-- submit button -->
         <button type="button" id="formBTN">Submit to do</button>
       </form>
     </div>
