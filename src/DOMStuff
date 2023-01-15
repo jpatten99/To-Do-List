@@ -1,10 +1,4 @@
-// clear all todo's from DOM 
-const clearContent = () => {
-  const content = document.getElementById('content');
-  content.innerHTML = "";
-}
-
-//Recieves todo as parameter, display it in the content div
+//Recieves Todo as parameter, display it in the content div
 const displayToDo = (obj) => {
   let title = document.createElement('p');
   title.innerText = obj.title;
@@ -15,30 +9,29 @@ const displayToDo = (obj) => {
   let priority = document.createElement('p');
   priority.innerText = obj.priority;
   let container = document.createElement('div');
-  container.setAttribute('class', 'todo-container')
+  container.setAttribute('class', 'Todo-container');
   container.appendChild(title);
   container.appendChild(description);
   container.appendChild(dueDate);
   container.appendChild(priority);
-  addButtons(container);
+  addDeleteTodoButtons(container);
   let content = document.getElementById('content');
   content.appendChild(container);
-  
 }
 
-//Display form when add todo button is clicked
+//Display form when add Todo button is clicked
 const displayForm = () => {
-  const myForm = document.getElementById('myform');
-  myForm.classList.remove('inactive');
+  const TodoForm = document.getElementById('TodoForm');
+  TodoForm.classList.remove('inactive');
 }
 
-//Remove form from DOM when todo is submitted
+//Remove form from DOM when Todo is submitted
 const removeForm = () => {
-  const myForm = document.getElementById('myform');
-  myForm.classList.add('inactive');
+  const TodoForm = document.getElementById('TodoForm');
+  TodoForm.classList.add('inactive');
 }
 
-//Display add todo and erase content buttons after form is submitted
+//Display add Todo and erase content buttons after form is submitted
 const displayButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
@@ -46,7 +39,7 @@ const displayButtons = () => {
   addToDoBTN.classList.remove('inactive');
 }
 
-//Remove add todo and erase content buttons from DOM when add todo is clicked
+//Remove add Todo and erase content buttons from DOM when add Todo is clicked
 const removeButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
@@ -54,26 +47,47 @@ const removeButtons = () => {
   addToDoBTN.classList.add('inactive');
 }
 
-//Add delete button to a todo passed into this function
-function addButtons(input) {
+//Add delete button to a Todo passed into this function
+function addDeleteTodoButtons(input) {
   let delBtn = document.createElement('button');
   delBtn.innerText = "Delete Todo";
   delBtn.classList.add('delBtn')
   input.appendChild(delBtn);
   delBtn.addEventListener('click', deleteTodo, false);
   delBtn.myParam = delBtn.parentElement;
+
+  let readBtn = document.createElement('button');
+  readBtn.innerText = "Complete Todo";
+  readBtn.classList.add('readBtn')
+  input.appendChild(readBtn);
+  readBtn.addEventListener('click', readBook, false);
+  readBtn.myParam2 = readBtn.parentElement;
 }
 
-//Deletes todo passed into this function
+//Deletes Todo passed into this function
 function deleteTodo(evt) {
   evt.currentTarget.myParam.remove();
 }
 
+function readBook(evt) {
+  if(!evt.currentTarget.myParam2.hasAttribute('id')){
+    // alert("success");
+    evt.currentTarget.myParam2.setAttribute('id', 'complete');
+  }
+}
+
+const addProjectBTN = () => {
+  const sidebar = document.getElementById('side-bar');
+  const projectButton = document.createElement('button');
+  projectButton.innerText = projectName.value;
+  sidebar.appendChild(projectButton);
+}
+
 export {
-  clearContent,
   displayToDo,
   displayForm,
   removeForm,
   removeButtons,
-  displayButtons
+  displayButtons,
+  addProjectBTN
 };
