@@ -20,7 +20,7 @@ body{
   margin-bottom: 10px;
 }
 
-#myform{
+#TodoForm{
   background-color: white;
   margin-bottom: 10px;
 }
@@ -41,17 +41,23 @@ body{
 }
 
 #content{
-  background-color: red;
+  background-color: gray;
   min-width: 80%;
 }
 
-.todo-container{
+.Todo-container{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   min-width: 80vw;
+  margin-bottom: 5px;
 }
 
 .inactive{
   display: none;
+}
+
+#complete{
+  opacity: 0.5;
+  text-decoration: line-through;
 }

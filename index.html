@@ -15,7 +15,8 @@
         <button type="button" id="eraseBTN">Erase content</button>
         <button type="button" id="addToDoBTN">Add to do</button>
       </div>
-      <form action="" id="myform" class="inactive">
+      <!-- Todo form -->
+      <form action="" id="TodoForm" class="inactive">
         <!-- Title input -->
         <label for="title">To Do Title:</label>
         <input type="text"id="title">
@@ -29,9 +30,7 @@
         <input type="text"id="dueDate">
 
         <!-- Priority input -->
-        <!-- <label for="priority">To Do Priority:</label>
-        <input type="text"id="priority"> -->
-
+        
         <p id=form-prompt>Priority?</p>
         <input type="radio" id="priority" name="priority" value="low" checked>
         <label for="priority">low</label><br>
@@ -41,7 +40,7 @@
         <label for="priority">high</label>
 
         <!-- submit button -->
-        <button type="button" id="formBTN">Submit to do</button>
+        <button type="button" id="TodoFormBTN">Submit Todo</button>
       </form>
     </div>
 
@@ -51,6 +50,15 @@
       <!-- side-bar div -->
       <div id="side-bar">
         <button type="button" id="addProjectBTN">Add project</button>
+
+        <!-- Project form -->
+        <form action="" id="projectForm" class="">
+          <!-- Name input -->
+        <label for="projectName">Project Name:</label>
+        <input type="text"id="projectName">
+        <!-- submit button -->
+        <button type="button" id="projectFormBTN">Submit project</button>
+        </form>
       </div>
 
       <!-- content div -->
