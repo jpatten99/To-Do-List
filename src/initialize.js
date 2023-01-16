@@ -1,5 +1,5 @@
 import { TodoFactory } from "./Todo";
-import { deactivateTopbarButtons, activateTodoForm, renderTodo, deactivateTodoForm, activateTopbarButtons, addProjectBTN } from "./DOMStuff";
+import { deactivateTopbarButtons, activateTodoForm, renderTodo, deactivateTodoForm, activateTopbarButtons, displayNewProjectBTN, activateCreateProjectBTN, deactivateCreateProjectBTN, activateProjectForm, deactivateProjectForm } from "./DOMStuff";
 
 
 //Run on load to add functionality to buttons
@@ -20,16 +20,23 @@ function initialize() {
   document.getElementById('TodoFormBTN').addEventListener('click', function(){
     const testToDo2 = TodoFactory(title.value, description.value, dueDate.value, document.querySelector('input[name="priority"]:checked').value);
     renderTodo(testToDo2);
-    const TodoForm = document.getElementById('TodoForm');
-    TodoForm.reset();
+    document.getElementById('TodoForm').reset();
     deactivateTodoForm();
     activateTopbarButtons();
   });
 
+   //Add event listener to project submit button
+   document.getElementById('addProjectBTN').addEventListener('click', function(){
+    deactivateCreateProjectBTN();
+    activateProjectForm();
+  });
+
   //Add event listener to project submit button
-  document.getElementById('projectForm').addEventListener('click', function(){
-    // alert('Project created');
-    addProjectBTN();
+  document.getElementById('projectFormBTN').addEventListener('click', function(){
+    displayNewProjectBTN();
+    document.getElementById('projectForm').reset();
+    deactivateProjectForm();
+    activateCreateProjectBTN();
   });
 };
 
