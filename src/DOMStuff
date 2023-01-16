@@ -1,5 +1,5 @@
 //Recieves Todo as parameter, display it in the content div
-const displayToDo = (obj) => {
+const renderTodo = (obj) => {
   let title = document.createElement('p');
   title.innerText = obj.title;
   let description = document.createElement('p');
@@ -20,19 +20,19 @@ const displayToDo = (obj) => {
 }
 
 //Display form when add Todo button is clicked
-const displayForm = () => {
+const activateTodoForm = () => {
   const TodoForm = document.getElementById('TodoForm');
   TodoForm.classList.remove('inactive');
 }
 
 //Remove form from DOM when Todo is submitted
-const removeForm = () => {
+const deactivateTodoForm = () => {
   const TodoForm = document.getElementById('TodoForm');
   TodoForm.classList.add('inactive');
 }
 
 //Display add Todo and erase content buttons after form is submitted
-const displayButtons = () => {
+const activateTopbarButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
   eraseBTN.classList.remove('inactive');
@@ -40,7 +40,7 @@ const displayButtons = () => {
 }
 
 //Remove add Todo and erase content buttons from DOM when add Todo is clicked
-const removeButtons = () => {
+const deactivateTopbarButtons = () => {
   const eraseBTN = document.getElementById('eraseBTN');
   const addToDoBTN = document.getElementById('addToDoBTN');
   eraseBTN.classList.add('inactive');
@@ -84,10 +84,10 @@ const addProjectBTN = () => {
 }
 
 export {
-  displayToDo,
-  displayForm,
-  removeForm,
-  removeButtons,
-  displayButtons,
+  renderTodo,
+  activateTodoForm,
+  deactivateTodoForm,
+  deactivateTopbarButtons,
+  activateTopbarButtons,
   addProjectBTN
 };

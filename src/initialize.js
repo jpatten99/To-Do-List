@@ -1,57 +1,36 @@
 import { TodoFactory } from "./Todo";
-import { removeButtons, displayForm, displayToDo, removeForm, displayButtons, addProjectBTN } from "./DOMStuff";
+import { deactivateTopbarButtons, activateTodoForm, renderTodo, deactivateTodoForm, activateTopbarButtons, addProjectBTN } from "./DOMStuff";
 
-//Add event listener to erase content button
-const setEraseContentBTN = () => {
-  const content = document.getElementById('content');
-  content.innerHTML = "";
-}
-
-//Add event listener to add Todo button
-const setAddTodoBTN = () => {
-  removeButtons();
-  displayForm();
-}
-
-//Add event to submit Todo form button
-const setSubmitTodoBTN = () => {
-  const TodoForm = document.getElementById('TodoForm');
-  const testToDo2 = TodoFactory(title.value, description.value, dueDate.value, document.querySelector('input[name="priority"]:checked').value);
-  displayToDo(testToDo2);
-  TodoForm.reset();
-  removeForm();
-  displayButtons();
-}
-
-//Add event listener to project submit button
-const setAddProjectBTN = () => {
-  // alert('Project created');
-  addProjectBTN();
-}
 
 //Run on load to add functionality to buttons
 function initialize() {
   
   //Add event listener to erase content buttton
-  const eraseBTN = document.getElementById('eraseBTN');
-  eraseBTN.addEventListener('click', function(){setEraseContentBTN()});
-
+  document.getElementById('eraseBTN').addEventListener('click', function(){
+    document.getElementById('content').innerHTML = "";
+  });
+  
   //Add event listener to add Todo button
-  const addToDoBTN = document.getElementById('addToDoBTN');
-  addToDoBTN.addEventListener('click', function(){
-    setAddTodoBTN();
+  document.getElementById('addToDoBTN').addEventListener('click', function(){
+    deactivateTopbarButtons();
+    activateTodoForm();
   });
 
   //Add event to submit Todo form button
-  const TodoFormBTN = document.getElementById('TodoFormBTN');
-  TodoFormBTN.addEventListener('click', function(){
-   setSubmitTodoBTN();
-  }) 
+  document.getElementById('TodoFormBTN').addEventListener('click', function(){
+    const testToDo2 = TodoFactory(title.value, description.value, dueDate.value, document.querySelector('input[name="priority"]:checked').value);
+    renderTodo(testToDo2);
+    const TodoForm = document.getElementById('TodoForm');
+    TodoForm.reset();
+    deactivateTodoForm();
+    activateTopbarButtons();
+  });
 
   //Add event listener to project submit button
-  const projectFormBTN = document.getElementById('projectForm');
-  projectFormBTN.addEventListener('click', function(){setAddProjectBTN()});
-
+  document.getElementById('projectForm').addEventListener('click', function(){
+    // alert('Project created');
+    addProjectBTN();
+  });
 };
 
 export { initialize }
