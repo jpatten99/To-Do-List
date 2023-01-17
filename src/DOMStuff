@@ -1,4 +1,5 @@
 import {globalCounter, projects} from './initialize.js';
+import { spliceTodo, markTodoAttrComplete } from './Todo.js';
 
 //pageID used to display ID of the project at the top of the page
 global.pageID = 0;
@@ -15,6 +16,9 @@ const renderTodo = (obj) => {
   priority.innerText = obj.priority;
   let container = document.createElement('div');
   container.setAttribute('class', 'Todo-container');
+  if(obj.completed == true){
+    container.setAttribute('id', 'complete');
+  }
   container.appendChild(title);
   container.appendChild(description);
   container.appendChild(dueDate);
@@ -22,14 +26,6 @@ const renderTodo = (obj) => {
   appendDeleteAndCompleteTodoButton(obj, container);
   document.getElementById('content').appendChild(container);
 }
-
-const logTodo = (obj) => {
-  console.log(obj.title);
-  console.log(obj.description);
-  console.log(obj.dueDate);
-  console.log(obj.priority);
-}
-
 
 //Display form when add Todo button is clicked
 const activateTodoForm = () => {
@@ -69,41 +65,20 @@ function appendDeleteAndCompleteTodoButton(obj, input) {
   input.appendChild(completeBTN);
   completeBTN.addEventListener('click', completeTodo, false);
   completeBTN.myParam2 = completeBTN.parentElement;
+  completeBTN.myParamObj2 = obj;
 }
 
-//Deletes Todo passed into this function
+//Deletes Todo passed into this function and removes it from its parent project's todo array
 function deleteTodo(evt) {
-  console.log("target todo:")
-  console.log(evt.currentTarget.myParamObj);
   evt.currentTarget.myParam.remove();
-  for (const i in projects) {
-    console.log(i);
-    if (projects[i].id == global.pageID) {
-      console.log("target project:")
-      console.log(projects[i].todoArr);
-      for (const j in projects[i].todoArr) {
-        if(projects[i].todoArr[j].title == evt.currentTarget.myParamObj.title && projects[i].todoArr[j].description == evt.currentTarget.myParamObj.description &&
-          projects[i].todoArr[j].dueDate == evt.currentTarget.myParamObj.dueDate && projects[i].todoArr[j].priority == evt.currentTarget.myParamObj.priority)
-        {
-          console.log(projects[i].todoArr[j]);
-
-          //array.splice(i, 1);
-
-          projects[i].todoArr.splice(j, 1);
-          console.log("result:");
-          console.log(projects[i].todoArr);
-        }
-      }
-    }
-  }
+  spliceTodo(evt);
 }
 
 //Marks Todo as complete
 function completeTodo(evt) {
   if(!evt.currentTarget.myParam2.hasAttribute('id')){
-    evt.currentTarget.completed = true;
-    // console.log(evt.currentTarget);
     evt.currentTarget.myParam2.setAttribute('id', 'complete');
+    markTodoAttrComplete(evt)
   }
 }
 
@@ -140,7 +115,6 @@ const renderProjectTitleBTN = () => {
     //find project correlated to sidebar button and render it
     for (const i in projects) {
       if (projects[i].id == global.pageID) {
-        // console.log(projects[i]);
         renderProject(projects[i].todoArr)
       }
     }

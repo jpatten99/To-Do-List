@@ -3,8 +3,6 @@ const projectFactory = (projectName, id) => {
   return { projectName, id, todoArr };
 }
 
-
-
 export {
   projectFactory
 };
