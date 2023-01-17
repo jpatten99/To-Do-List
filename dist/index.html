@@ -49,10 +49,10 @@
 
       <!-- side-bar div -->
       <div id="side-bar">
-        <button type="button" id="addProjectBTN">Add project</button>
+        <button type="button" id="addProjectBTN">Create project</button>
 
         <!-- Project form -->
-        <form action="" id="projectForm" class="inactive">
+        <form id="projectForm" class="inactive" onkeypress="return event.keyCode != 13">
           <!-- Name input -->
         <label for="projectName">Project Name:</label>
         <input type="text"id="projectName">

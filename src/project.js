@@ -1,9 +1,9 @@
-const projectFactory = (projectName) => {
-  const logger = () => {
-    console.log(projectName);
-  }
-  return { projectName, logger };
+const projectFactory = (projectName, id) => {
+  const todoArr = [];
+  return { projectName, id, todoArr };
 }
+
+
 
 export {
   projectFactory

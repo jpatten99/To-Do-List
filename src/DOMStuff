@@ -1,3 +1,8 @@
+
+import {globalCounter, projects} from './initialize.js';
+
+var pageID = 0;
+
 //Recieves Todo as parameter, display it in the content div
 const renderTodo = (obj) => {
   let title = document.createElement('p');
@@ -17,6 +22,19 @@ const renderTodo = (obj) => {
   appendDeleteAndCompleteTodoButton(container);
   document.getElementById('content').appendChild(container);
 }
+
+const logTodo = (obj) => {
+  
+  
+  console.log(obj.title);
+  
+  console.log(obj.description);
+  
+  console.log(obj.dueDate);
+  
+  console.log(obj.priority);
+}
+
 
 //Display form when add Todo button is clicked
 const activateTodoForm = () => {
@@ -84,10 +102,31 @@ const deactivateProjectForm = () => {
 }
 
 
-const displayNewProjectBTN = () => {
+const renderProjectTitleBTN = () => {
   const projectButton = document.createElement('button');
   projectButton.innerText = projectName.value;
+  projectButton.setAttribute('id', globalCounter);
   document.getElementById('side-bar').appendChild(projectButton);
+  document.getElementById('projectForm').reset();
+  projectButton.addEventListener('click', function(){
+    pageID = projectButton.getAttribute('id')
+    // console.log(pageID);
+    for (const i in projects) {
+      // console.log(projects[i].id);
+      if (projects[i].id == pageID) {
+        // console.log(projects[i]);
+        //render project function here -> render(projects[i].todoArr)
+        renderProject(projects[i].todoArr)
+      }
+    }
+  })
+}
+
+const renderProject = (project) => {
+  document.getElementById('content').innerHTML = "";
+  for (const i in project) {
+    renderTodo(project[i]);
+  }
 }
 
 export {
@@ -96,9 +135,10 @@ export {
   deactivateTodoForm,
   deactivateTopbarButtons,
   activateTopbarButtons,
-  displayNewProjectBTN,
+  renderProjectTitleBTN,
   activateProjectForm,
   deactivateProjectForm,
   activateCreateProjectBTN,
-  deactivateCreateProjectBTN
+  deactivateCreateProjectBTN,
+  pageID
 };
