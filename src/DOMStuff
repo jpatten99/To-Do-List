@@ -1,7 +1,7 @@
-
 import {globalCounter, projects} from './initialize.js';
 
-var pageID = 0;
+//pageID used to display ID of the project at the top of the page
+global.pageID = 0;
 
 //Recieves Todo as parameter, display it in the content div
 const renderTodo = (obj) => {
@@ -19,19 +19,14 @@ const renderTodo = (obj) => {
   container.appendChild(description);
   container.appendChild(dueDate);
   container.appendChild(priority);
-  appendDeleteAndCompleteTodoButton(container);
+  appendDeleteAndCompleteTodoButton(obj, container);
   document.getElementById('content').appendChild(container);
 }
 
 const logTodo = (obj) => {
-  
-  
   console.log(obj.title);
-  
   console.log(obj.description);
-  
   console.log(obj.dueDate);
-  
   console.log(obj.priority);
 }
 
@@ -59,13 +54,14 @@ const deactivateTopbarButtons = () => {
 }
 
 //Add delete button to a Todo passed into this function
-function appendDeleteAndCompleteTodoButton(input) {
+function appendDeleteAndCompleteTodoButton(obj, input) {
   let deleteTodoBTN = document.createElement('button');
   deleteTodoBTN.innerText = "Delete Todo";
   deleteTodoBTN.classList.add('deleteTodoBTN')
   input.appendChild(deleteTodoBTN);
   deleteTodoBTN.addEventListener('click', deleteTodo, false);
   deleteTodoBTN.myParam = deleteTodoBTN.parentElement;
+  deleteTodoBTN.myParamObj = obj;
 
   let completeBTN = document.createElement('button');
   completeBTN.innerText = "Complete Todo";
@@ -77,31 +73,59 @@ function appendDeleteAndCompleteTodoButton(input) {
 
 //Deletes Todo passed into this function
 function deleteTodo(evt) {
+  console.log("target todo:")
+  console.log(evt.currentTarget.myParamObj);
   evt.currentTarget.myParam.remove();
+  for (const i in projects) {
+    console.log(i);
+    if (projects[i].id == global.pageID) {
+      console.log("target project:")
+      console.log(projects[i].todoArr);
+      for (const j in projects[i].todoArr) {
+        if(projects[i].todoArr[j].title == evt.currentTarget.myParamObj.title && projects[i].todoArr[j].description == evt.currentTarget.myParamObj.description &&
+          projects[i].todoArr[j].dueDate == evt.currentTarget.myParamObj.dueDate && projects[i].todoArr[j].priority == evt.currentTarget.myParamObj.priority)
+        {
+          console.log(projects[i].todoArr[j]);
+
+          //array.splice(i, 1);
+
+          projects[i].todoArr.splice(j, 1);
+          console.log("result:");
+          console.log(projects[i].todoArr);
+        }
+      }
+    }
+  }
 }
 
+//Marks Todo as complete
 function completeTodo(evt) {
   if(!evt.currentTarget.myParam2.hasAttribute('id')){
+    evt.currentTarget.completed = true;
+    // console.log(evt.currentTarget);
     evt.currentTarget.myParam2.setAttribute('id', 'complete');
   }
 }
 
+//display create project button after project form is submitted
 const activateCreateProjectBTN = () => {
   document.getElementById('addProjectBTN').classList.remove('inactive')
 }
+//hide create project button after it is clicked
 const deactivateCreateProjectBTN = () => {
   document.getElementById('addProjectBTN').classList.add('inactive')
 }
 
-
+//display project form when create project button is clicked
 const activateProjectForm = () => {
   document.getElementById('projectForm').classList.remove('inactive')
 }
+//hide project form after it is submitted
 const deactivateProjectForm = () => {
   document.getElementById('projectForm').classList.add('inactive')
 }
 
-
+//called when project form is submitted
 const renderProjectTitleBTN = () => {
   const projectButton = document.createElement('button');
   projectButton.innerText = projectName.value;
@@ -109,13 +133,14 @@ const renderProjectTitleBTN = () => {
   document.getElementById('side-bar').appendChild(projectButton);
   document.getElementById('projectForm').reset();
   projectButton.addEventListener('click', function(){
-    pageID = projectButton.getAttribute('id')
-    // console.log(pageID);
+    
+    global.pageID = projectButton.getAttribute('id');
+    //displays current project name and id at top of page
+    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText} (ID:${global.pageID})`;
+    //find project correlated to sidebar button and render it
     for (const i in projects) {
-      // console.log(projects[i].id);
-      if (projects[i].id == pageID) {
+      if (projects[i].id == global.pageID) {
         // console.log(projects[i]);
-        //render project function here -> render(projects[i].todoArr)
         renderProject(projects[i].todoArr)
       }
     }
@@ -140,5 +165,5 @@ export {
   deactivateProjectForm,
   activateCreateProjectBTN,
   deactivateCreateProjectBTN,
-  pageID
+  renderProject
 };
