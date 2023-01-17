@@ -67,3 +67,15 @@ body{
     border-color: #000000;
     color: white;
 }
+
+.red{
+  background-color: red;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.green{
+  background-color: green;
+}

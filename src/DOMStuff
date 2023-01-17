@@ -25,6 +25,13 @@ const renderTodo = (obj) => {
   container.appendChild(priority);
   appendDeleteAndCompleteTodoButton(obj, container);
   document.getElementById('content').appendChild(container);
+  if(obj.priority=='high'){
+    container.classList.add('red');
+  }
+  else if(obj.priority=='medium'){
+    container.classList.add('yellow');
+  }
+  else{container.classList.add('green');}
 }
 
 //Display form when add Todo button is clicked
