@@ -1,11 +1,11 @@
 import { projects } from "./initialize";
+import { populateStorage } from "./initialize";
 
 
 const TodoFactory = (title, description, dueDate, priority) => {
   let completed = false;
   return { title, description, dueDate, priority, completed };
 };
-
 
 //takes a todo and removes it from array
 const spliceTodo = (evt) => {
@@ -40,8 +40,26 @@ const markTodoAttrComplete = (evt) => {
   }
 } 
 
+//Deletes Todo passed into this function and removes it from its parent project's todo array
+function deleteTodo(evt) {
+  evt.currentTarget.myParam.remove();
+  spliceTodo(evt);
+  populateStorage();
+}
+
+//Marks Todo as complete and changes todo's completed value to true
+function completeTodo(evt) {
+  if(!evt.currentTarget.myParam2.hasAttribute('id')){
+    evt.currentTarget.myParam2.setAttribute('id', 'complete');
+    markTodoAttrComplete(evt);
+    populateStorage();
+  }
+}
+
 export {
   TodoFactory,
   spliceTodo,
-  markTodoAttrComplete
+  markTodoAttrComplete,
+  deleteTodo,
+  completeTodo,
 };

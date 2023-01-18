@@ -1,19 +1,23 @@
 import {globalCounter, projects, populateStorage} from './initialize.js';
-import { spliceTodo, markTodoAttrComplete } from './Todo.js';
+import { deleteTodo, completeTodo } from './Todo.js';
 
-//pageID used to display ID of the project at the top of the page
+//Keeps track of what project to render on page
 global.pageID = 0;
 
 //Recieves Todo as parameter, display it in the content div
 const renderTodo = (obj) => {
   let title = document.createElement('p');
   title.innerText = obj.title;
+  title.setAttribute('id', 'todoAttribute');
   let description = document.createElement('p');
   description.innerText = obj.description;
+  description.setAttribute('id', 'todoAttribute');
   let dueDate = document.createElement('p');
   dueDate.innerText = obj.dueDate;
+  dueDate.setAttribute('id', 'todoAttribute');
   let priority = document.createElement('p');
   priority.innerText = obj.priority;
+  priority.setAttribute('id', 'todoAttribute');
   let container = document.createElement('div');
   container.setAttribute('class', 'Todo-container');
   if(obj.completed == true){
@@ -32,6 +36,14 @@ const renderTodo = (obj) => {
     container.classList.add('yellow');
   }
   else{container.classList.add('green');}
+}
+
+//Loop through given array.todoArr and render each todo
+const renderProject = (project) => {
+  document.getElementById('content').innerHTML = "";
+  for (const i in project) {
+    renderTodo(project[i]);
+  }
 }
 
 //Display form when add Todo button is clicked
@@ -75,22 +87,6 @@ function appendDeleteAndCompleteTodoButton(obj, input) {
   completeBTN.myParamObj2 = obj;
 }
 
-//Deletes Todo passed into this function and removes it from its parent project's todo array
-function deleteTodo(evt) {
-  evt.currentTarget.myParam.remove();
-  spliceTodo(evt);
-  populateStorage();
-}
-
-//Marks Todo as complete
-function completeTodo(evt) {
-  if(!evt.currentTarget.myParam2.hasAttribute('id')){
-    evt.currentTarget.myParam2.setAttribute('id', 'complete');
-    markTodoAttrComplete(evt);
-    populateStorage();
-  }
-}
-
 //display create project button after project form is submitted
 const activateCreateProjectBTN = () => {
   document.getElementById('addProjectBTN').classList.remove('inactive')
@@ -109,7 +105,7 @@ const deactivateProjectForm = () => {
   document.getElementById('projectForm').classList.add('inactive')
 }
 
-//called when project form is submitted
+//called when project form is submitted->creates button in sidebar for the project submitted
 const renderProjectTitleBTN = () => {
   const projectButton = document.createElement('button');
   projectButton.innerText = projectName.value;
@@ -124,17 +120,30 @@ const renderProjectTitleBTN = () => {
     //find project correlated to sidebar button and render it
     for (const i in projects) {
       if (projects[i].id == global.pageID) {
-        renderProject(projects[i].todoArr)
+        renderProject(projects[i].todoArr);
       }
     }
   })
 }
 
-const renderProject = (project) => {
-  document.getElementById('content').innerHTML = "";
-  for (const i in project) {
-    renderTodo(project[i]);
-  }
+//If localStorage already contains our projects, we need render the sideBar buttons when the page loads
+//(different from when a new project is created as that takes input from the project form)
+const renderSideBarBTNsOnLoad = (project) => {
+  const projectButton = document.createElement('button');
+  projectButton.innerText = project.projectName;
+  projectButton.setAttribute('id', project.id);
+  document.getElementById('side-bar').appendChild(projectButton);
+  projectButton.addEventListener('click', function(){
+    global.pageID = projectButton.getAttribute('id');
+    //displays current project name and id at top of page
+    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText} (ID:${global.pageID})`;
+    //find project correlated to sidebar button and render it
+    for (const i in projects) {
+      if (projects[i].id == global.pageID) {
+        renderProject(projects[i].todoArr);
+      }
+    }
+  })
 }
 
 export {
@@ -148,5 +157,6 @@ export {
   deactivateProjectForm,
   activateCreateProjectBTN,
   deactivateCreateProjectBTN,
-  renderProject
+  renderProject,
+  renderSideBarBTNsOnLoad,
 };

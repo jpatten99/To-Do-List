@@ -1,44 +1,38 @@
 import { TodoFactory } from "./Todo";
-import { deactivateTopbarButtons, activateTodoForm, renderTodo, deactivateTodoForm, activateTopbarButtons, renderProjectTitleBTN, activateCreateProjectBTN, deactivateCreateProjectBTN, activateProjectForm, deactivateProjectForm, pageID, renderProject } from "./DOMStuff";
+import { deactivateTopbarButtons, activateTodoForm, renderTodo, deactivateTodoForm, activateTopbarButtons,
+renderProjectTitleBTN, activateCreateProjectBTN, deactivateCreateProjectBTN, activateProjectForm, deactivateProjectForm,
+renderProject, renderSideBarBTNsOnLoad } from "./DOMStuff";
 import { projectFactory } from "./project";
 
-
+//Used for project.id assignment
 var globalCounter = 0;
-
+//holds all projects
 var projects = [];
 
-function localStorageTest(){
- console.log("The current state of projects array: ");
- console.log(projects);
- console.log("The current state of localStorage.projects: ");
- console.log(localStorage.getItem("projects"));
- console.log("The current state of localStore(parsed): ")
- console.log(JSON.parse(localStorage.getItem("projects")));
-}
+//TESTING FUNCTION
+/*function localStorageTest(){
+    console.log("The current state of projects array: ");
+    console.log(projects);
+    console.log("The current state of localStorage.projects: ");
+    console.log(localStorage.getItem("projects"));
+    console.log("The current state of localStore(parsed): ")
+    console.log(JSON.parse(localStorage.getItem("projects")));
+  }
+*/
 
+
+//put projects into localStorage when:
+/*
+1. New todo is created
+2. New project is created
+3. A todo is marked complete
+4. A todo is deleted
+*/
 function populateStorage(){
   localStorage.projects = JSON.stringify(projects);
 }
 
 
-const renderSideBarBTNsOnLoad = (project) => {
-  const projectButton = document.createElement('button');
-  projectButton.innerText = project.projectName;
-  projectButton.setAttribute('id', project.id);
-  document.getElementById('side-bar').appendChild(projectButton);
-  projectButton.addEventListener('click', function(){
-    
-    global.pageID = projectButton.getAttribute('id');
-    //displays current project name and id at top of page
-    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText} (ID:${global.pageID})`;
-    //find project correlated to sidebar button and render it
-    for (const i in projects) {
-      if (projects[i].id == global.pageID) {
-        renderProject(projects[i].todoArr)
-      }
-    }
-  })
-}
 
 function loadFromLocal(){
   projects = JSON.parse(localStorage.getItem("projects"));
@@ -76,9 +70,8 @@ function initialize() {
       }
     })
     globalCounter++;
-
-
-  } else {
+  }
+  else {
     //case if projects is found in local storage
     loadFromLocal();
   }
