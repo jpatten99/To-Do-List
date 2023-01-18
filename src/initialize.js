@@ -110,6 +110,7 @@ function initialize() {
   //Add event listener to erase content buttton
   document.getElementById('eraseBTN').addEventListener('click', function(){
     document.getElementById('content').innerHTML = "";
+    localStorage.clear();
     localStorageTest();
   });
   
@@ -149,4 +150,4 @@ function initialize() {
 };
 
 
-export { initialize, globalCounter, projects}
+export { initialize, globalCounter, projects, populateStorage}
