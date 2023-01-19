@@ -9,18 +9,6 @@ var globalCounter = 0;
 //holds all projects
 var projects = [];
 
-//TESTING FUNCTION
-/*function localStorageTest(){
-    console.log("The current state of projects array: ");
-    console.log(projects);
-    console.log("The current state of localStorage.projects: ");
-    console.log(localStorage.getItem("projects"));
-    console.log("The current state of localStore(parsed): ")
-    console.log(JSON.parse(localStorage.getItem("projects")));
-  }
-*/
-
-
 //put projects into localStorage when:
 /*
 1. New todo is created
@@ -32,8 +20,6 @@ function populateStorage(){
   localStorage.projects = JSON.stringify(projects);
 }
 
-
-
 function loadFromLocal(){
   projects = JSON.parse(localStorage.getItem("projects"));
   renderProject(projects[0].todoArr);
@@ -43,7 +29,7 @@ function loadFromLocal(){
   globalCounter = projects.length;
 }
 
-//Run on load to add functionality to buttons
+//Run on page load
 function initialize() {
 
   if (!localStorage.getItem('projects')) {
@@ -53,6 +39,7 @@ function initialize() {
     const defaultButton = document.createElement('button');
     defaultButton.innerText = 'default';
     defaultButton.setAttribute('id', globalCounter);
+    defaultButton.classList.add('side-bar-button');
     document.getElementById('side-bar').appendChild(defaultButton);
     defaultButton.addEventListener('click', function(){
       
@@ -62,9 +49,7 @@ function initialize() {
       //find project correlated to sidebar button and render it
       for (const i in projects) {
         if (projects[i].id == global.pageID) {
-          // console.log(projects[i]);
           renderProject(projects[i].todoArr);
-          // renderProject(JSON.parse(localStorage.getItem("projects"))[i].todoArr);
         }
       }
     })
@@ -77,9 +62,7 @@ function initialize() {
   
   //Add event listener to erase content buttton
   document.getElementById('eraseBTN').addEventListener('click', function(){
-    document.getElementById('content').innerHTML = "";
     localStorage.clear();
-    localStorageTest();
   });
   
   //Add event listener to add Todo button
@@ -120,6 +103,5 @@ function initialize() {
     populateStorage();
   });
 };
-
 
 export { initialize, globalCounter, projects, populateStorage}

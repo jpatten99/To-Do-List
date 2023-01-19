@@ -9,11 +9,11 @@
 
     <!-- top-bar div -->
     <div id="top-bar">
-      <h1 id="header">Welcome to To Do List Version 1</h1>
-      <h2 id="currentProjectDisplay">Current Project: default</h2>
+      <h1 id="header" style="color: white;">Welcome to To Do List Version 1</h1>
+      <h2 id="currentProjectDisplay" style="color: white;">Current Project: default</h2>
       <!-- button bar -->
       <div id="button-bar">
-        <button type="button" id="eraseBTN">Erase content</button>
+        <button type="button" id="eraseBTN">Clear local storage</button>
         <button type="button" id="addToDoBTN">Add to do</button>
       </div>
       <!-- Todo form -->
@@ -33,13 +33,21 @@
         <!-- Priority input -->
         
         <p id=form-prompt>Priority?</p>
-        <input type="radio" id="priority" name="priority" value="low" checked>
-        <label for="priority">low</label><br>
-        <input type="radio" id="priority" name="priority" value="medium">
-        <label for="priority">medium</label><br>
-        <input type="radio" id="priority" name="priority" value="high">
-        <label for="priority">high</label>
+        <div>
+          <label for="priority">low</label>
+          <input type="radio" id="priority" name="priority" value="low" checked>
+        </div>
+        
+        <div>
+          <label for="priority">medium</label>
+          <input type="radio" id="priority" name="priority" value="medium">
+        </div>
 
+        <div>
+          <label for="priority">high</label>
+          <input type="radio" id="priority" name="priority" value="high">
+        </div>
+       
         <!-- submit button -->
         <button type="button" id="TodoFormBTN">Submit Todo</button>
       </form>
@@ -50,12 +58,14 @@
 
       <!-- side-bar div -->
       <div id="side-bar">
-        <button type="button" id="addProjectBTN">Create project</button>
+        <div style="background-color: black; width: 100%; display: flex; justify-content: center; border-color: white; border-width: 0px 0px 1px 0px; border-style: solid;">
+          <button type="button" id="addProjectBTN">Create project</button>
+        </div>
 
         <!-- Project form -->
         <form id="projectForm" class="inactive" onkeypress="return event.keyCode != 13">
           <!-- Name input -->
-        <label for="projectName">Project Name:</label>
+        <label for="projectName" style="color: white;">Project Name:</label>
         <input type="text"id="projectName">
         <!-- submit button -->
         <button type="button" id="projectFormBTN">Submit project</button>

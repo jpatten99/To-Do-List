@@ -49,11 +49,13 @@ const renderProject = (project) => {
 //Display form when add Todo button is clicked
 const activateTodoForm = () => {
   document.getElementById('TodoForm').classList.remove('inactive');
+  document.getElementById('TodoForm').classList.add('active');
 }
 
 //Remove form from DOM when Todo is submitted
 const deactivateTodoForm = () => {
   document.getElementById('TodoForm').classList.add('inactive');
+  document.getElementById('TodoForm').classList.remove('active');
 }
 
 //Display add Todo and erase content buttons after form is submitted
@@ -111,6 +113,7 @@ const renderProjectTitleBTN = () => {
   projectButton.innerText = projectName.value;
   if(!projectButton.innerText) {projectButton.innerText = globalCounter;}
   projectButton.setAttribute('id', globalCounter);
+  projectButton.classList.add('side-bar-button');
   document.getElementById('side-bar').appendChild(projectButton);
   document.getElementById('projectForm').reset();
   projectButton.addEventListener('click', function(){
@@ -133,6 +136,7 @@ const renderSideBarBTNsOnLoad = (project) => {
   const projectButton = document.createElement('button');
   projectButton.innerText = project.projectName;
   projectButton.setAttribute('id', project.id);
+  projectButton.classList.add('side-bar-button');
   document.getElementById('side-bar').appendChild(projectButton);
   projectButton.addEventListener('click', function(){
     global.pageID = projectButton.getAttribute('id');
