@@ -109,6 +109,7 @@ const deactivateProjectForm = () => {
 const renderProjectTitleBTN = () => {
   const projectButton = document.createElement('button');
   projectButton.innerText = projectName.value;
+  if(!projectButton.innerText) {projectButton.innerText = globalCounter;}
   projectButton.setAttribute('id', globalCounter);
   document.getElementById('side-bar').appendChild(projectButton);
   document.getElementById('projectForm').reset();
@@ -116,7 +117,7 @@ const renderProjectTitleBTN = () => {
     
     global.pageID = projectButton.getAttribute('id');
     //displays current project name and id at top of page
-    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText} (ID:${global.pageID})`;
+    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText}`;
     //find project correlated to sidebar button and render it
     for (const i in projects) {
       if (projects[i].id == global.pageID) {
@@ -136,7 +137,7 @@ const renderSideBarBTNsOnLoad = (project) => {
   projectButton.addEventListener('click', function(){
     global.pageID = projectButton.getAttribute('id');
     //displays current project name and id at top of page
-    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText} (ID:${global.pageID})`;
+    document.getElementById('currentProjectDisplay').innerText = `Current Project: ${projectButton.innerText}`;
     //find project correlated to sidebar button and render it
     for (const i in projects) {
       if (projects[i].id == global.pageID) {

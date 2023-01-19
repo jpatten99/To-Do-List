@@ -46,7 +46,6 @@ function loadFromLocal(){
 //Run on load to add functionality to buttons
 function initialize() {
 
-
   if (!localStorage.getItem('projects')) {
     //case if projects isn't found in local storage
     const defaultProject = projectFactory('default', globalCounter);
@@ -59,7 +58,7 @@ function initialize() {
       
       global.pageID = 0;
       //displays current project name and id at top of page
-      document.getElementById('currentProjectDisplay').innerText = `Current Project: ${defaultButton.innerText} (ID:${global.pageID})`;
+      document.getElementById('currentProjectDisplay').innerText = `Current Project: ${defaultButton.innerText}`;
       //find project correlated to sidebar button and render it
       for (const i in projects) {
         if (projects[i].id == global.pageID) {
@@ -75,30 +74,6 @@ function initialize() {
     //case if projects is found in local storage
     loadFromLocal();
   }
-
-  // const defaultProject = projectFactory('default', globalCounter);
-  // projects.push(defaultProject);
-  // const defaultButton = document.createElement('button');
-  // defaultButton.innerText = 'default';
-  // defaultButton.setAttribute('id', globalCounter);
-  // document.getElementById('side-bar').appendChild(defaultButton);
-  // defaultButton.addEventListener('click', function(){
-    
-  //   global.pageID = 0;
-  //   //displays current project name and id at top of page
-  //   document.getElementById('currentProjectDisplay').innerText = `Current Project: ${defaultButton.innerText} (ID:${global.pageID})`;
-  //   //find project correlated to sidebar button and render it
-  //   for (const i in projects) {
-  //     if (projects[i].id == global.pageID) {
-  //       // console.log(projects[i]);
-  //       renderProject(projects[i].todoArr);
-  //       // renderProject(JSON.parse(localStorage.getItem("projects"))[i].todoArr);
-  //     }
-  //   }
-  // })
-  // globalCounter++;
-  
-  
   
   //Add event listener to erase content buttton
   document.getElementById('eraseBTN').addEventListener('click', function(){
@@ -116,6 +91,9 @@ function initialize() {
   //Add event to submit Todo form button
   document.getElementById('TodoFormBTN').addEventListener('click', function(){
     const testToDo2 = TodoFactory(title.value, description.value, dueDate.value, document.querySelector('input[name="priority"]:checked').value);
+    if(!testToDo2.title) {testToDo2.title = '---';}
+    if(!testToDo2.description) {testToDo2.description = '---';}
+    if(!testToDo2.dueDate) {testToDo2.dueDate = '---';}
     projects[global.pageID].todoArr.push(testToDo2);
     renderTodo(testToDo2);
     document.getElementById('TodoForm').reset();
@@ -133,6 +111,7 @@ function initialize() {
   //Add event listener to project submit button
   document.getElementById('projectFormBTN').addEventListener('click', function(){
     const testProject = projectFactory(projectName.value, globalCounter);
+    if(!testProject.projectName) {testProject.projectName = globalCounter;}
     projects.push(testProject);
     renderProjectTitleBTN();
     deactivateProjectForm();
