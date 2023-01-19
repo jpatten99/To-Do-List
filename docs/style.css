@@ -1,0 +1,135 @@
+body{
+  display: flex;
+  flex-direction: column;
+  margin: 0cm;
+
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
+}
+
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+#top-bar{
+  background-color: rgb(1, 1, 26);
+  min-width: 100%;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-width: 1px 1px 0px 1px;
+  border-color: white;
+  border-style: solid;
+}
+
+#button-bar{
+  min-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+#TodoForm{
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+#bottom-half{
+  min-width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  border: white solid 1px;
+}
+
+#side-bar{
+  background-color: rgb(30, 30, 30);
+  min-width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: -1px;
+  border-color: white;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+}
+
+.side-bar-button{
+  width: 100%;
+}
+
+#content-container{
+  background-color: black;
+  min-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-style: solid;
+  border-color: white;
+  border-width: 0px 1px 0px 1px;
+  margin-left: -1px;
+}
+
+#content{
+  background-color: black;
+  min-width: 100%;
+}
+
+.Todo-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 5px;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px 0px;
+}
+
+#complete{
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+#todoAttribute{
+  width: 100px;
+  word-wrap: break-word; 
+}
+
+p#todoAttribute.title{
+  background-color: white;
+  width: 100px;
+  height: 16px;
+  margin: 2px 0px;
+  background-color:black;
+  color: white;
+}
+
+#titleBar{
+  width: 100%;
+  background-color: #000000;
+  display: flex;
+  justify-content: space-around;
+}
+
+.red{
+  background-color: red;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.green{
+  background-color: green;
+}
+
+.inactive{
+  display: none;
+}
+
+.active{
+  display: flex;
+  flex-direction: column;
+}
